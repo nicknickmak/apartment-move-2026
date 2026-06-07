@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apartment Move Timeline — Jun 27, 2026</title>
+  <style>
+    :root {
+      --bg: #f8f7f4;
+      --surface: #ffffff;
+      --text: #1a1a1a;
+      --muted: #5c5c5c;
+      --accent: #2563eb;
+      --accent-light: #eff6ff;
+      --border: #e5e2dc;
+      --success: #16a34a;
+      --warning: #d97706;
+      --warning-bg: #fffbeb;
+      --trip: #7c3aed;
+      --trip-bg: #f5f3ff;
+      --party: #db2777;
+      --party-bg: #fdf2f8;
+      --move: #059669;
+      --move-bg: #ecfdf5;
+      --radius: 10px;
+      --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .route {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .route strong { color: var(--text); }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .meta-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.75rem 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .meta-card .label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 0.15rem;
+    }
+
+    .meta-card .value {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .alert {
+      background: var(--warning-bg);
+      border: 1px solid #fcd34d;
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
+      font-size: 0.92rem;
+    }
+
+    .alert strong { color: var(--warning); }
+
+    section {
+      margin-bottom: 2rem;
+    }
+
+    section > h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 0.65rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: #f3f1ec;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .badge-move { background: var(--move-bg); color: var(--move); }
+    .badge-party { background: var(--party-bg); color: var(--party); }
+    .badge-trip { background: var(--trip-bg); color: var(--trip); }
+    .badge-boxes { background: var(--accent-light); color: var(--accent); }
+    .badge-start { background: #f3f4f6; color: #374151; }
+
+    .week-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 1.25rem;
+      overflow: hidden;
+    }
+
+    .week-header {
+      padding: 0.85rem 1.25rem;
+      background: #f3f1ec;
+      border-bottom: 1px solid var(--border);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .week-header .sub {
+      font-weight: 400;
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-top: 0.15rem;
+    }
+
+    .week-header.party { background: var(--party-bg); border-bottom-color: #f9a8d4; }
+    .week-header.trip { background: var(--trip-bg); border-bottom-color: #c4b5fd; }
+    .week-header.move { background: var(--move-bg); border-bottom-color: #6ee7b7; }
+
+    .phase {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .phase:last-child { border-bottom: none; }
+
+    .phase h3 {
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      color: var(--muted);
+    }
+
+    .phase h3 .tag {
+      color: var(--text);
+    }
+
+    ul.tasks {
+      list-style: none;
+    }
+
+    ul.tasks li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.35rem 0;
+      font-size: 0.9rem;
+    }
+
+    ul.tasks li.done label {
+      text-decoration: line-through;
+      color: var(--muted);
+    }
+
+    ul.tasks input[type="checkbox"] {
+      margin-top: 0.25rem;
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent);
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    ul.tasks label {
+      cursor: pointer;
+      flex: 1;
+    }
+
+    .priority-table td:first-child {
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .furniture-grid {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .furniture-row {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 0.75rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.75rem 1rem;
+      font-size: 0.88rem;
+      box-shadow: var(--shadow);
+    }
+
+    .furniture-row .when {
+      font-weight: 600;
+      font-size: 0.82rem;
+      color: var(--accent);
+    }
+
+    .bottom-line {
+      background: var(--accent-light);
+      border: 1px solid #bfdbfe;
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      font-size: 0.92rem;
+    }
+
+    .bottom-line strong { color: var(--accent); }
+
+    .glossary {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .glossary-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.85rem 1rem;
+      box-shadow: var(--shadow);
+      font-size: 0.88rem;
+    }
+
+    .glossary-item dt {
+      font-weight: 700;
+      font-size: 0.92rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .glossary-item dd {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .glossary-item dd strong {
+      color: var(--text);
+    }
+
+    .alert-info {
+      background: var(--accent-light);
+      border-color: #bfdbfe;
+    }
+
+    .alert-info strong { color: var(--accent); }
+
+    .progress-bar-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .progress-bar-wrap .label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-bar-wrap .label-row span:last-child {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .progress-track {
+      height: 8px;
+      background: var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 999px;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .progress-bar-wrap { display: none; }
+      .week-block { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Apartment Move Timeline</h1>
+      <p class="route">
+        <strong>140 Riverside Blvd</strong>, Manhattan &rarr;
+        <strong>28–30 Jackson Ave</strong> (Jackson Park LIC)
+        &nbsp;·&nbsp; 1 bedroom
+      </p>
+      <div class="meta-grid">
+        <div class="meta-card">
+          <div class="label">Today</div>
+          <div class="value">Sun Jun 7</div>
+        </div>
+        <div class="meta-card">
+          <div class="label">Move Day</div>
+          <div class="value">Sat Jun 27</div>
+        </div>
+        <div class="meta-card">
+          <div class="label">Boxes Arrive</div>
+          <div class="value">Wed Jun 11</div>
+        </div>
+        <div class="meta-card">
+          <div class="label">LIC Lease Starts</div>
+          <div class="value">Sat Jun 27</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="progress-bar-wrap">
+      <div class="label-row">
+        <span>Overall progress</span>
+        <span id="progress-text">0 / 0 tasks</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+    </div>
+
+    <div class="alert">
+      <strong>Tight calendar:</strong> Your trip (Jun 21–22) is the week before the move.
+      Treat <strong>Jun 16–20</strong> as your crunch week — aim to be 70–80% packed by Fri Jun 20.
+      After the trip you only have <strong>Jun 23–26</strong> for the final sprint.
+    </div>
+
+    <div class="alert alert-info">
+      <strong>Jackson Park lease starts Jun 27:</strong> You cannot move into or store anything at 28–30 Jackson Ave before that date.
+      Plan a same-day move — load out of Riverside in the morning, unload at Jackson Park once you have keys and the lease is active.
+      Submit COI and book the elevator ahead of time, but your move-in window is <strong>Sat Jun 27 only</strong>.
+    </div>
+
+    <section>
+      <h2>Terms Explained</h2>
+      <dl class="glossary">
+        <div class="glossary-item">
+          <dt>COI (Certificate of Insurance)</dt>
+          <dd>
+            A document from your <strong>moving company's insurance</strong> that proves they carry liability coverage.
+            Both buildings require it before movers can use the elevator or loading areas.
+            Your mover sends it to building management; the building must <strong>approve it</strong> (often takes 1–2 weeks).
+            It usually must list the building as "additional insured." Ask each building for their COI template and send it to your mover early.
+          </dd>
+        </div>
+        <div class="glossary-item">
+          <dt>Furniture pickups</dt>
+          <dd>
+            When someone <strong>buys your furniture</strong> (Facebook Marketplace, AptDeco, etc.) and comes to your apartment to take it.
+            You stay home for the agreed window, let them in, and they carry the item out — you don't deliver.
+            Schedule these for weekdays when you're free; buyers often want evenings or weekends, so be clear about your availability.
+            Do pickups at <strong>Riverside</strong> (where the furniture is now), ideally before Jun 20 so you're not cramming them in after your trip.
+          </dd>
+        </div>
+      </dl>
+    </section>
+
+    <section>
+      <h2>Key Dates</h2>
+      <table>
+        <thead>
+          <tr><th>Date</th><th>What</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sun Jun 7</td>
+            <td><span class="badge badge-start">Start</span> Planning &amp; list furniture</td>
+          </tr>
+          <tr>
+            <td>Wed Jun 11</td>
+            <td><span class="badge badge-boxes">Boxes</span> 12 small boxes arrive — start packing non-essentials</td>
+          </tr>
+          <tr>
+            <td>Jun 14–15</td>
+            <td><span class="badge badge-party">Party</span> Birthday + party — light tasks only</td>
+          </tr>
+          <tr>
+            <td>Jun 16–20</td>
+            <td><strong>Main packing week</strong> — your critical window</td>
+          </tr>
+          <tr>
+            <td>Jun 21–22</td>
+            <td><span class="badge badge-trip">Trip</span> Blocked — week before move</td>
+          </tr>
+          <tr>
+            <td>Jun 23–26</td>
+            <td>Final sprint after trip</td>
+          </tr>
+          <tr>
+            <td>Sat Jun 27</td>
+            <td><span class="badge badge-move">Move Day</span> Riverside move-out → Jackson Park move-in (lease starts today)</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Week-by-Week Plan</h2>
+
+      <div class="week-block">
+        <div class="week-header">Week 1 · Jun 7–13 — Setup, sell &amp; start packing</div>
+
+        <div class="phase">
+          <h3><span class="tag">Mon–Tue Jun 9–10</span> — do this first</h3>
+          <ul class="tasks" data-group="w1-mon">
+            <li><input type="checkbox" id="t1"><label for="t1">Book movers or truck for Sat Jun 27</label></li>
+            <li><input type="checkbox" id="t2"><label for="t2">Call 140 Riverside Blvd — move-out rules, elevator reservation for Jun 27, COI template for mover, loading dock</label></li>
+            <li><input type="checkbox" id="t3"><label for="t3">Call Jackson Park — lease starts Jun 27; confirm move-in time, elevator booking for the 27th, COI template, and when/where you get keys</label></li>
+            <li><input type="checkbox" id="t4"><label for="t4">Inventory everything — keep / sell / donate / trash</label></li>
+            <li><input type="checkbox" id="t5"><label for="t5">List all furniture for sale — photos up by Tue at latest</label></li>
+          </ul>
+        </div>
+
+        <div class="phase">
+          <h3><span class="tag">Wed Jun 11</span> — boxes arrive</h3>
+          <ul class="tasks" data-group="w1-wed">
+            <li><input type="checkbox" id="t6"><label for="t6">Pack non-essentials: books, decor, off-season clothes, extra linens, rarely used kitchen items</label></li>
+            <li><input type="checkbox" id="t7"><label for="t7">Label boxes by room (Bedroom / Kitchen / Living / Misc)</label></li>
+            <li><input type="checkbox" id="t8"><label for="t8">Start "open first at LIC" list: toiletries, 2 days clothes, chargers, basic kitchen, TP, sheets</label></li>
+          </ul>
+        </div>
+
+        <div class="phase">
+          <h3><span class="tag">Thu–Fri Jun 12–13</span></h3>
+          <ul class="tasks" data-group="w1-fri">
+            <li><input type="checkbox" id="t9"><label for="t9">Schedule buyer furniture pickups at Riverside — aim for Jun 16–20 weekdays (see Terms Explained)</label></li>
+            <li><input type="checkbox" id="t10"><label for="t10">Start address changes: USPS forward, bank, credit cards, subscriptions, employer</label></li>
+            <li><input type="checkbox" id="t11"><label for="t11">Utilities: schedule disconnect at Riverside, connect at Jackson Park for Jun 27</label></li>
+            <li><input type="checkbox" id="t12"><label for="t12">Have mover submit COI (Certificate of Insurance) to both buildings — see Terms Explained</label></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="week-block">
+        <div class="week-header party">
+          Week 2 · Jun 14–20 — Party weekend + main packing week
+          <div class="sub">Jun 16–20 is your last full work block before the trip</div>
+        </div>
+
+        <div class="phase">
+          <h3><span class="tag">Party weekend Jun 14–15</span> — light tasks only</h3>
+          <ul class="tasks" data-group="w2-party">
+            <li><input type="checkbox" id="t13"><label for="t13">Respond to buyer messages; confirm pickup times</label></li>
+            <li><input type="checkbox" id="t14"><label for="t14">Pack 2–3 boxes if you have a spare hour</label></li>
+          </ul>
+        </div>
+
+        <div class="phase">
+          <h3><span class="tag">Mon–Fri Jun 16–20</span> — main packing week (critical)</h3>
+          <ul class="tasks" data-group="w2-main">
+            <li><input type="checkbox" id="t15"><label for="t15">Living room — pack decor, media, extras; leave sofa/TV until last unless sold</label></li>
+            <li><input type="checkbox" id="t16"><label for="t16">Bedroom — out-of-season clothes, shoes, decor</label></li>
+            <li><input type="checkbox" id="t17"><label for="t17">Kitchen — duplicates, small appliances, pantry extras</label></li>
+            <li><input type="checkbox" id="t18"><label for="t18">Buyer furniture pickups at Riverside — Jun 16–20 weekdays</label></li>
+            <li><input type="checkbox" id="t19"><label for="t19">Donation run for unsold items</label></li>
+            <li><input type="checkbox" id="t20"><label for="t20">Confirm mover booking + both building reservations for Jun 27</label></li>
+            <li><input type="checkbox" id="t21"><label for="t21">Drop prices on anything not sold by Jun 20</label></li>
+          </ul>
+          <p style="font-size:0.85rem;color:var(--muted);margin-top:0.5rem;"><strong>Goal by Fri Jun 20:</strong> ~70–80% packed, most furniture sold or buyer pickups scheduled, COI approved by both buildings, Jun 27 move logistics locked.</p>
+        </div>
+      </div>
+
+      <div class="week-block">
+        <div class="week-header trip">
+          Week 3 · Jun 21–27 — Trip, then sprint to move
+          <div class="sub">Only Jun 23–26 left after you return</div>
+        </div>
+
+        <div class="phase">
+          <h3><span class="tag">Trip weekend Jun 21–22</span> — blocked</h3>
+          <ul class="tasks" data-group="w3-trip">
+            <li><input type="checkbox" id="t22"><label for="t22">Optional: reply to urgent buyer messages only</label></li>
+          </ul>
+        </div>
+
+        <div class="phase">
+          <h3><span class="tag">Mon–Wed Jun 23–25</span> — final sprint</h3>
+          <ul class="tasks" data-group="w3-sprint">
+            <li><input type="checkbox" id="t23"><label for="t23">Pack kitchen for real — one pot, one pan, minimal dishes until move day</label></li>
+            <li><input type="checkbox" id="t24"><label for="t24">Pack bedroom — one outfit per day + move-day clothes</label></li>
+            <li><input type="checkbox" id="t25"><label for="t25">Disassemble furniture coming with you</label></li>
+            <li><input type="checkbox" id="t26"><label for="t26">Last buyer furniture pickups at Riverside, or donate/curb</label></li>
+            <li><input type="checkbox" id="t27"><label for="t27">Deep clean as rooms empty</label></li>
+            <li><input type="checkbox" id="t28"><label for="t28">Eat down fridge/freezer</label></li>
+            <li><input type="checkbox" id="t29"><label for="t29">Photograph Riverside for security deposit</label></li>
+          </ul>
+        </div>
+
+        <div class="phase">
+          <h3><span class="tag">Thu Jun 26</span> — eve of move</h3>
+          <ul class="tasks" data-group="w3-eve">
+            <li><input type="checkbox" id="t30"><label for="t30">Essentials box ready (don't put on truck)</label></li>
+            <li><input type="checkbox" id="t31"><label for="t31">Confirm elevator times with both buildings + movers</label></li>
+            <li><input type="checkbox" id="t32"><label for="t32">Final sweep prep — trash, mail, keys checklist</label></li>
+            <li><input type="checkbox" id="t33"><label for="t33">Bedding: pack last or air mattress for one night</label></li>
+          </ul>
+        </div>
+
+        <div class="phase">
+          <h3><span class="tag">Sat Jun 27</span> — move day</h3>
+          <ul class="tasks" data-group="w3-move">
+            <li><input type="checkbox" id="t34"><label for="t34">Movers / truck at Riverside per elevator reservation</label></li>
+            <li><input type="checkbox" id="t35"><label for="t35">Final walkthrough, keys, thermostat, photos</label></li>
+            <li><input type="checkbox" id="t36"><label for="t36">Pick up Jackson Park keys (lease starts today) → unload at 28–30 Jackson Ave; elevator per reservation</label></li>
+            <li><input type="checkbox" id="t37"><label for="t37">Set up essentials box + bed first at LIC</label></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Priorities</h2>
+      <table class="priority-table">
+        <thead>
+          <tr><th>Priority</th><th>When</th><th>Why</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>List furniture</td>
+            <td>This week (by Jun 11)</td>
+            <td>Need 2+ weeks to sell; pickups before trip</td>
+          </tr>
+          <tr>
+            <td>COI + elevator bookings</td>
+            <td>Mon–Tue Jun 9–10</td>
+            <td>Insurance cert must be approved before movers can enter either building</td>
+          </tr>
+          <tr>
+            <td>Main packing</td>
+            <td>Jun 16–20 weekdays</td>
+            <td>Last uninterrupted block</td>
+          </tr>
+          <tr>
+            <td>70–80% packed</td>
+            <td>By Fri Jun 20</td>
+            <td>Trip eats Jun 21–22</td>
+          </tr>
+          <tr>
+            <td>Final 20% + clean</td>
+            <td>Jun 23–26</td>
+            <td>Only window left</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Furniture Selling Timeline</h2>
+      <p style="font-size:0.88rem;color:var(--muted);margin-bottom:0.75rem;">
+        Pickups = buyers coming to <strong>Riverside</strong> to take items they bought. All pickups must happen before you vacate Riverside.
+      </p>
+      <div class="furniture-grid">
+        <div class="furniture-row">
+          <div class="when">Jun 7–11</div>
+          <div>List everything on Facebook Marketplace, AptDeco, OfferUp. Good photos + dimensions. "Pick up at Riverside — must take by Jun 20."</div>
+        </div>
+        <div class="furniture-row">
+          <div class="when">Jun 14–15</div>
+          <div>Party weekend — reply to buyers only; avoid scheduling pickups if possible</div>
+        </div>
+        <div class="furniture-row">
+          <div class="when">Jun 16–20</div>
+          <div><strong>Primary pickup window</strong> — buyers come to your apartment on weekdays</div>
+        </div>
+        <div class="furniture-row">
+          <div class="when">Jun 23–25</div>
+          <div>Last-chance buyer pickups, price drops, or donate</div>
+        </div>
+        <div class="furniture-row">
+          <div class="when">Jun 26</div>
+          <div>Donate or curb anything left — nothing should remain to move unless you're keeping it</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Building Reminders</h2>
+      <div class="week-block">
+        <div class="phase">
+          <h3>140 Riverside Blvd (move-out)</h3>
+          <ul class="tasks" data-group="bldg-out">
+            <li><input type="checkbox" id="t38"><label for="t38">COI (Certificate of Insurance) from mover submitted &amp; approved — allow 1–2 weeks</label></li>
+            <li><input type="checkbox" id="t39"><label for="t39">Elevator padding / reservation for Jun 27</label></li>
+            <li><input type="checkbox" id="t40"><label for="t40">Loading dock or street loading rules confirmed</label></li>
+          </ul>
+        </div>
+        <div class="phase">
+          <h3>Jackson Park LIC (move-in — lease starts Sat Jun 27)</h3>
+          <ul class="tasks" data-group="bldg-in">
+            <li><input type="checkbox" id="t41"><label for="t41">Move-in appointment booked for Jun 27 (cannot move in earlier)</label></li>
+            <li><input type="checkbox" id="t42"><label for="t42">COI (Certificate of Insurance) from mover submitted &amp; approved before move day</label></li>
+            <li><input type="checkbox" id="t43"><label for="t43">Confirm key/fob pickup process for Jun 27 — lease commencement day</label></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="bottom-line">
+      <strong>Bottom line:</strong> Treat <strong>Jun 16–20</strong> as your crunch week, not the party or trip weekends.
+      Call both buildings Mon–Tue this week for move packets and COI templates — that's the most common thing that derails NYC moves.
+      Jackson Park is move-in on the 27th only; line up Riverside move-out the same day so you're not between apartments overnight.
+    </div>
+
+    <footer>
+      Generated Jun 7, 2026 · Checkboxes save automatically in this browser
+    </footer>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'move-timeline-jun2026';
+
+    function loadState() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+      } catch {
+        return {};
+      }
+    }
+
+    function saveState(state) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function updateProgress() {
+      const boxes = document.querySelectorAll('input[type="checkbox"]');
+      const checked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+      const total = boxes.length;
+      const pct = total ? Math.round((checked / total) * 100) : 0;
+      document.getElementById('progress-fill').style.width = pct + '%';
+      document.getElementById('progress-text').textContent = checked + ' / ' + total + ' tasks (' + pct + '%)';
+    }
+
+    const state = loadState();
+    document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+      if (state[cb.id]) {
+        cb.checked = true;
+        cb.closest('li').classList.add('done');
+      }
+      cb.addEventListener('change', () => {
+        state[cb.id] = cb.checked;
+        cb.closest('li').classList.toggle('done', cb.checked);
+        saveState(state);
+        updateProgress();
+      });
+    });
+
+    updateProgress();
+  </script>
+</body>
+</html>
