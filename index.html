@@ -22,6 +22,8 @@
       --party-bg: #fdf2f8;
       --move: #059669;
       --move-bg: #ecfdf5;
+      --today: #1d4ed8;
+      --today-bg: #dbeafe;
       --radius: 10px;
       --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
     }
@@ -36,14 +38,9 @@
       padding: 2rem 1rem 4rem;
     }
 
-    .container {
-      max-width: 780px;
-      margin: 0 auto;
-    }
+    .container { max-width: 780px; margin: 0 auto; }
 
-    header {
-      margin-bottom: 2rem;
-    }
+    header { margin-bottom: 2rem; }
 
     header h1 {
       font-size: 1.75rem;
@@ -83,9 +80,11 @@
       margin-bottom: 0.15rem;
     }
 
-    .meta-card .value {
-      font-weight: 600;
-      font-size: 0.95rem;
+    .meta-card .value { font-weight: 600; font-size: 0.95rem; }
+
+    .meta-card.highlight {
+      border-color: #93c5fd;
+      background: var(--today-bg);
     }
 
     .alert {
@@ -93,15 +92,27 @@
       border: 1px solid #fcd34d;
       border-radius: var(--radius);
       padding: 1rem 1.25rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1.25rem;
       font-size: 0.92rem;
     }
 
     .alert strong { color: var(--warning); }
 
-    section {
-      margin-bottom: 2rem;
+    .alert-info {
+      background: var(--accent-light);
+      border-color: #bfdbfe;
     }
+
+    .alert-info strong { color: var(--accent); }
+
+    .alert-move {
+      background: var(--move-bg);
+      border-color: #6ee7b7;
+    }
+
+    .alert-move strong { color: var(--move); }
+
+    section { margin-bottom: 2rem; }
 
     section > h2 {
       font-size: 1.15rem;
@@ -149,10 +160,10 @@
     }
 
     .badge-move { background: var(--move-bg); color: var(--move); }
-    .badge-party { background: var(--party-bg); color: var(--party); }
-    .badge-trip { background: var(--trip-bg); color: var(--trip); }
-    .badge-boxes { background: var(--accent-light); color: var(--accent); }
-    .badge-start { background: #f3f4f6; color: #374151; }
+    .badge-today { background: var(--today-bg); color: var(--today); }
+    .badge-help { background: var(--party-bg); color: var(--party); }
+    .badge-done { background: #f3f4f6; color: #374151; }
+    .badge-low { background: #f3f4f6; color: var(--muted); }
 
     .week-block {
       background: var(--surface);
@@ -178,8 +189,8 @@
       margin-top: 0.15rem;
     }
 
-    .week-header.party { background: var(--party-bg); border-bottom-color: #f9a8d4; }
-    .week-header.trip { background: var(--trip-bg); border-bottom-color: #c4b5fd; }
+    .week-header.today { background: var(--today-bg); border-bottom-color: #93c5fd; }
+    .week-header.help { background: var(--party-bg); border-bottom-color: #f9a8d4; }
     .week-header.move { background: var(--move-bg); border-bottom-color: #6ee7b7; }
 
     .phase {
@@ -196,13 +207,31 @@
       color: var(--muted);
     }
 
-    .phase h3 .tag {
-      color: var(--text);
+    .phase h3 .tag { color: var(--text); }
+
+    .goal-box {
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.85rem;
+      font-size: 0.88rem;
     }
 
-    ul.tasks {
-      list-style: none;
+    .goal-box strong { color: var(--success); }
+
+    .food-box {
+      background: #fff7ed;
+      border: 1px solid #fdba74;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-top: 0.85rem;
+      font-size: 0.88rem;
     }
+
+    .food-box strong { color: var(--warning); }
+
+    ul.tasks { list-style: none; }
 
     ul.tasks li {
       display: flex;
@@ -226,25 +255,16 @@
       cursor: pointer;
     }
 
-    ul.tasks label {
-      cursor: pointer;
-      flex: 1;
-    }
+    ul.tasks label { cursor: pointer; flex: 1; }
 
-    .priority-table td:first-child {
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    .furniture-grid {
+    .status-grid {
       display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 0.75rem;
+      margin-bottom: 1rem;
     }
 
-    .furniture-row {
-      display: grid;
-      grid-template-columns: 100px 1fr;
-      gap: 0.75rem;
+    .status-item {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -253,57 +273,12 @@
       box-shadow: var(--shadow);
     }
 
-    .furniture-row .when {
-      font-weight: 600;
-      font-size: 0.82rem;
-      color: var(--accent);
-    }
+    .status-item .room { font-weight: 600; margin-bottom: 0.25rem; }
+    .status-item .pct { font-size: 0.8rem; color: var(--muted); }
 
-    .bottom-line {
-      background: var(--accent-light);
-      border: 1px solid #bfdbfe;
-      border-radius: var(--radius);
-      padding: 1rem 1.25rem;
-      font-size: 0.92rem;
-    }
-
-    .bottom-line strong { color: var(--accent); }
-
-    .glossary {
-      display: grid;
-      gap: 0.75rem;
-    }
-
-    .glossary-item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 0.85rem 1rem;
-      box-shadow: var(--shadow);
-      font-size: 0.88rem;
-    }
-
-    .glossary-item dt {
-      font-weight: 700;
-      font-size: 0.92rem;
-      margin-bottom: 0.35rem;
-    }
-
-    .glossary-item dd {
-      color: var(--muted);
-      margin: 0;
-    }
-
-    .glossary-item dd strong {
-      color: var(--text);
-    }
-
-    .alert-info {
-      background: var(--accent-light);
-      border-color: #bfdbfe;
-    }
-
-    .alert-info strong { color: var(--accent); }
+    .status-item.done-room { border-color: #86efac; background: #f0fdf4; }
+    .status-item.partial { border-color: #fcd34d; background: #fffbeb; }
+    .status-item.not-started { border-color: #fca5a5; background: #fef2f2; }
 
     .progress-bar-wrap {
       background: var(--surface);
@@ -337,9 +312,46 @@
       height: 100%;
       background: var(--accent);
       border-radius: 999px;
-      width: 0%;
+      width: 50%;
       transition: width 0.3s ease;
     }
+
+    .glossary { display: grid; gap: 0.75rem; }
+
+    .glossary-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.85rem 1rem;
+      box-shadow: var(--shadow);
+      font-size: 0.88rem;
+    }
+
+    .glossary-item dt {
+      font-weight: 700;
+      font-size: 0.92rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .glossary-item dd { color: var(--muted); margin: 0; }
+    .glossary-item dd strong { color: var(--text); }
+
+    .contact-row {
+      font-size: 0.88rem;
+      padding: 0.35rem 0;
+    }
+
+    .contact-row a { color: var(--accent); }
+
+    .bottom-line {
+      background: var(--accent-light);
+      border: 1px solid #bfdbfe;
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      font-size: 0.92rem;
+    }
+
+    .bottom-line strong { color: var(--accent); }
 
     footer {
       margin-top: 2rem;
@@ -358,53 +370,369 @@
 <body>
   <div class="container">
     <header>
-      <h1>Apartment Move Timeline</h1>
+      <h1>Apartment Move — Final Sprint</h1>
       <p class="route">
-        <strong>140 Riverside Blvd</strong>, Manhattan &rarr;
-        <strong>28–30 Jackson Ave</strong> (Jackson Park LIC)
+        <strong>140 Riverside Blvd #727</strong>, Manhattan &rarr;
+        <strong>3 Jackson Park #33N</strong> (28–10 Jackson Ave, LIC)
         &nbsp;·&nbsp; 1 bedroom
       </p>
       <div class="meta-grid">
-        <div class="meta-card">
+        <div class="meta-card highlight">
+          <div class="label">Leave Tonight</div>
+          <div class="value">6:00 PM</div>
+        </div>
+        <div class="meta-card highlight">
           <div class="label">Today</div>
-          <div class="value">Sun Jun 7</div>
+          <div class="value">Sat Jun 27</div>
         </div>
         <div class="meta-card">
           <div class="label">Move Day</div>
-          <div class="value">Sat Jun 27</div>
+          <div class="value">Mon Jun 29</div>
         </div>
         <div class="meta-card">
-          <div class="label">Boxes Arrive</div>
-          <div class="value">Wed Jun 11</div>
+          <div class="label">Movers Arrive</div>
+          <div class="value">12–3 PM Mon</div>
         </div>
         <div class="meta-card">
-          <div class="label">LIC Lease Starts</div>
-          <div class="value">Sat Jun 27</div>
+          <div class="label">Balance Due</div>
+          <div class="value">$1,070 cash</div>
+        </div>
+        <div class="meta-card">
+          <div class="label">Riverside Elevator</div>
+          <div class="value">12–5 PM Mon</div>
+        </div>
+        <div class="meta-card">
+          <div class="label">JP Elevator</div>
+          <div class="value">1–2 PM Mon ✓</div>
+        </div>
+        <div class="meta-card">
+          <div class="label">Lease Ends</div>
+          <div class="value">Tue Jun 30</div>
+        </div>
+        <div class="meta-card">
+          <div class="label">Days Left</div>
+          <div class="value">2 packing days</div>
         </div>
       </div>
     </header>
 
     <div class="progress-bar-wrap">
       <div class="label-row">
-        <span>Overall progress</span>
-        <span id="progress-text">0 / 0 tasks</span>
+        <span>Packing progress (estimate)</span>
+        <span id="progress-text">~50% packed</span>
       </div>
       <div class="progress-track">
-        <div class="progress-fill" id="progress-fill"></div>
+        <div class="progress-fill" id="progress-fill" style="width:50%"></div>
       </div>
     </div>
 
     <div class="alert">
-      <strong>Tight calendar:</strong> Your trip (Jun 21–22) is the week before the move.
-      Treat <strong>Jun 16–20</strong> as your crunch week — aim to be 70–80% packed by Fri Jun 20.
-      After the trip you only have <strong>Jun 23–26</strong> for the final sprint.
+      <strong>2 days to pack.</strong> You're roughly halfway done. <strong>Finish the kitchen today</strong>; bedroom is Sunday. <strong>Marketplace is priority</strong> — slash prices and list everything now; unsold items do <strong>not</strong> go to Jackson Park.
     </div>
 
-    <div class="alert alert-info">
-      <strong>Jackson Park lease starts Jun 27:</strong> You cannot move into or store anything at 28–30 Jackson Ave before that date.
-      Plan a same-day move — load out of Riverside in the morning, unload at Jackson Park once you have keys and the lease is active.
-      Submit COI and book the elevator ahead of time, but your move-in window is <strong>Sat Jun 27 only</strong>.
+    <div class="alert alert-move">
+      <strong>Move day is Monday Jun 29.</strong> Perfect Moving crew arrival window <strong>12:00–3:00 PM</strong> (ref #7549677). Riverside elevator starts at <strong>12:00 PM</strong> — confirmed with super (BuildingLink shows 1–5 PM). Jackson Park service elevator <strong>1:00–2:00 PM confirmed</strong> — 1-hour formal slot; you can keep using it after 2 PM if no one is booked. Keys go to the super or A&amp;E staff — do not leave them in the apartment.
     </div>
+
+    <div class="alert">
+      <strong>Pay movers in cash Monday:</strong> Withdraw <strong>$1,070</strong> tonight ~6:30 PM en route ($920 balance + $150 tip). Pay <strong>$920 before the crew starts</strong>; tip <strong>$150 after the job</strong> — same cash stack. Email <a href="mailto:info@perfectmoving.com">info@perfectmoving.com</a> to confirm when you reply to the quote.
+    </div>
+
+    <section>
+      <h2>Packing Status by Room</h2>
+      <div class="status-grid">
+        <div class="status-item partial">
+          <div class="room">Living room</div>
+          <div class="pct">~50% — finish tomorrow if needed</div>
+        </div>
+        <div class="status-item partial">
+          <div class="room">Bathroom</div>
+          <div class="pct">~50% — finish tomorrow if needed</div>
+        </div>
+        <div class="status-item partial">
+          <div class="room">2 outside closets</div>
+          <div class="pct">~50% — finish tomorrow if needed</div>
+        </div>
+        <div class="status-item not-started">
+          <div class="room">Bedroom</div>
+          <div class="pct">Not started — Sunday priority</div>
+        </div>
+        <div class="status-item not-started">
+          <div class="room">Kitchen</div>
+          <div class="pct">Target finish today (Sat)</div>
+        </div>
+        <div class="status-item not-started">
+          <div class="room">Trip luggage</div>
+          <div class="pct">Unpack from last weekend — today</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>3-Day Schedule</h2>
+
+      <div class="week-block">
+        <div class="week-header today">
+          Saturday Jun 27 — Today
+          <div class="sub">Out tonight — leave by 6:00 PM (Jenna may need to stop earlier for makeup)</div>
+        </div>
+
+        <div class="phase">
+          <div class="goal-box">
+            <strong>Today's goal:</strong> <em>Finish the kitchen</em>, push marketplace sales, clear both desks. <strong>Hard stop: out the door by 6:00 PM</strong> — Jenna wind down ~5:00 for makeup; Nick can push to 6.
+          </div>
+
+          <h3><span class="tag">Before 6:00 PM tonight</span> — most urgent first</h3>
+          <ul class="tasks" data-group="sat">
+            <li><input type="checkbox" id="s1"><label for="s1">Unpack luggage from last weekend's trip — empty bags, start a laundry load</label></li>
+            <li><input type="checkbox" id="s3"><label for="s3">Trash run — bag everything, take to chute/dumpster</label></li>
+            <li><input type="checkbox" id="s14"><label for="s14">Clean <strong>both</strong> litter boxes; take out the travel litter box</label></li>
+            <li><input type="checkbox" id="s4"><label for="s4"><strong>Finish kitchen:</strong> pack pantry, spices, appliances, pots/pans, utensils, glassware — leave only 2 plates/bowls/mugs + forks for Sun–Mon</label></li>
+            <li><input type="checkbox" id="s2"><label for="s2">Wash all dishes — pack everything except 2 plates, 2 bowls, 2 mugs, 2 forks/knives</label></li>
+            <li><input type="checkbox" id="s5"><label for="s5">Clear both desks — empty off, sort marketplace vs pack</label></li>
+            <li><input type="checkbox" id="s8"><label for="s8"><strong>Marketplace (priority):</strong> drastically drop prices on all 7 listings — Jenna can do on phone while getting ready</label></li>
+            <li><input type="checkbox" id="s9"><label for="s9"><strong>Marketplace (priority):</strong> list the second monitor</label></li>
+            <li><input type="checkbox" id="s10"><label for="s10"><strong>For parents (Sunday):</strong> stage these to go home with them — desktop, litter box, standing mixer</label></li>
+            <li><input type="checkbox" id="s13"><label for="s13"><strong>Reply to Perfect Moving</strong> — confirm quote + that paying <strong>$920 cash Monday</strong> before the job starts locks in the $970 rate</label></li>
+          </ul>
+
+          <h3><span class="tag">If time before 5–6 PM</span> — lower priority</h3>
+          <ul class="tasks" data-group="sat-extra">
+            <li><input type="checkbox" id="s6"><label for="s6">Finish living room + bathroom + closets (target: 70%+ in done rooms)</label></li>
+            <li><input type="checkbox" id="s7"><label for="s7">Label any new boxes by room</label></li>
+            <li><input type="checkbox" id="s11"><label for="s11">Text parents: please bring <strong>lunch &amp; dinner</strong> Sunday morning</label></li>
+          </ul>
+
+          <div class="food-box">
+            <strong>Food today:</strong> Eat before you leave — quick lunch at home. Out the door <strong>6:00 PM</strong>. Grab bagels / Sunday breakfast on the way home or tonight if you have a minute.
+          </div>
+
+          <h3><span class="tag">Tonight ~6:30 PM</span> — en route to event</h3>
+          <ul class="tasks" data-group="sat-tonight">
+            <li><input type="checkbox" id="u18"><label for="u18">Bank stop: deposit loose cash, withdraw <strong>$1,070</strong> ($920 balance + $150 tip)</label></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="week-block">
+        <div class="week-header help">
+          Sunday Jun 28 — Parents visit
+          <div class="sub">Pack at Riverside · one LIC trip for fragile items · parents take stuff home</div>
+        </div>
+
+        <div class="phase">
+          <div class="goal-box">
+            <strong>Tomorrow's goal:</strong> Finish bedroom at Riverside. <strong>One LIC trip with parents</strong> — fragile items only (guitar, glassware, decor, etc.), not boxes or heavy stuff; everything else goes Monday with movers. When parents leave, they take whatever fits in their car. <strong>You pack — they only transport.</strong>
+          </div>
+
+          <h3><span class="tag">9:00–10:00 AM — before parents arrive</span> — most urgent first</h3>
+          <ul class="tasks" data-group="sun-pack">
+            <li><input type="checkbox" id="u0"><label for="u0">Confirm Jackson Park key/fob access for Sunday LIC trip + Monday move-in</label></li>
+            <li><input type="checkbox" id="u0b"><label for="u0b">Parents arrive with lunch &amp; dinner — no cooking needed while packing</label></li>
+            <li><input type="checkbox" id="u2"><label for="u2">Stage <strong>fragile LIC items</strong> by the door — guitar, glassware, mugs, decor, lamps (shades off), picture frames, etc. <em>No boxes or heavy items.</em></label></li>
+            <li><input type="checkbox" id="u4b"><label for="u4b">If taking frozen food: pack cooler bag (+ ice packs) for the LIC trip</label></li>
+            <li><input type="checkbox" id="u4"><label for="u4">Stage parents' take-home items by the door — desktop, litter box, standing mixer</label></li>
+          </ul>
+
+          <h3><span class="tag">10:00 AM–2:00 PM — parents visit &amp; LIC trip</span></h3>
+          <ul class="tasks" data-group="sun-shuttle">
+            <li><input type="checkbox" id="u8"><label for="u8">Nick packs at Riverside — bedroom, staging, last-minute boxes</label></li>
+            <li><input type="checkbox" id="u5"><label for="u5"><strong>LIC trip:</strong> Jenna goes with parents — fragile items only (guitar, etc.); keys, building entry, show 33N</label></li>
+            <li><input type="checkbox" id="u7"><label for="u7">Fragile items upright in car, nothing heavy on top</label></li>
+            <li><input type="checkbox" id="u7b"><label for="u7b">If bringing cooler: unload frozen food into freezer at 33N (go straight there)</label></li>
+            <li><input type="checkbox" id="u7c"><label for="u7c">When parents leave: load take-home items into their car — desktop, litter box, standing mixer (+ any boxes that fit)</label></li>
+          </ul>
+
+          <h3><span class="tag">Afternoon — deadlines &amp; wrap-up</span> — most urgent first</h3>
+          <ul class="tasks" data-group="sun-pm">
+            <li><input type="checkbox" id="u17"><label for="u17"><strong>Marketplace:</strong> respond fast to buyers; drop prices again on anything still listed</label></li>
+            <li><input type="checkbox" id="u17b"><label for="u17b">Sold items — stage for buyer pickup at <strong>Riverside</strong> (not Jackson Park)</label></li>
+            <li><input type="checkbox" id="u16"><label for="u16">Reply to Perfect Moving to confirm quote (if not done Sat)</label></li>
+            <li><input type="checkbox" id="u11"><label for="u11">Disassemble standing desks if sold for pickup — marketplace furniture is <strong>not</strong> going to LIC</label></li>
+            <li><input type="checkbox" id="u9"><label for="u9">Bedroom: clothes, shoes, linens (keep one set for Mon night)</label></li>
+            <li><input type="checkbox" id="u13"><label for="u13">Pack essentials box — <strong>do not send early</strong>, keep with you Monday</label></li>
+            <li><input type="checkbox" id="u10"><label for="u10">Kitchen final pass: eat down last perishables, wipe counters, trash out</label></li>
+          </ul>
+
+          <div class="food-box">
+            <strong>Food tomorrow:</strong> Breakfast — quick bagels &amp; coffee at home before 9 AM. <strong>Lunch &amp; dinner — parents bring when they arrive Sunday morning</strong> (you won't be cooking).
+          </div>
+        </div>
+      </div>
+
+      <div class="week-block">
+        <div class="week-header move">
+          Monday Jun 29 — Move day
+          <div class="sub">Jenna at Riverside until ~12:30, then LIC for elevator · Nick stays with movers, Ubers after load-out</div>
+        </div>
+
+        <div class="phase">
+          <h3><span class="tag">8:00–10:00 AM</span> — both at Riverside</h3>
+          <ul class="tasks" data-group="mon-8-10">
+            <li><input type="checkbox" id="m1"><label for="m1"><strong>8:00</strong> — Light breakfast; everyone uses the bathroom <strong>before</strong> cats are locked in</label></li>
+            <li><input type="checkbox" id="m2"><label for="m2"><strong>9:00</strong> — Final sweep: trash out, check closets/drawers, thermostat</label></li>
+            <li><input type="checkbox" id="m3"><label for="m3"><strong>10:00</strong> — Disassemble anything movers haven't seen; stage boxes by door; strip bed last</label></li>
+            <li><input type="checkbox" id="m-j0"><label for="m-j0">Jenna helps — final pack and stage by the door</label></li>
+          </ul>
+
+          <h3><span class="tag">~11:00 AM</span> — cats &amp; last prep</h3>
+          <ul class="tasks" data-group="mon-11">
+            <li><input type="checkbox" id="m-cats"><label for="m-cats">Lock cats in bathroom (litter, food, water, carrier ready)</label></li>
+            <li><input type="checkbox" id="m-tp"><label for="m-tp">Stock bathroom with <strong>toilet paper</strong> — for movers and Nick while on site</label></li>
+            <li><input type="checkbox" id="m4"><label for="m4">Essentials box + cat carrier/supplies ready (Nick brings on Uber)</label></li>
+          </ul>
+
+          <h3><span class="tag">12:00 PM onward</span> — Riverside load-out · Jenna heads to LIC</h3>
+          <ul class="tasks" data-group="mon-12">
+            <li><input type="checkbox" id="m-mp"><label for="m-mp"><strong>Before movers load:</strong> marketplace items (desks, Kallax, monitors, arms, drawer, cards) stay <strong>off the truck</strong> — not going to Jackson Park</label></li>
+            <li><input type="checkbox" id="m4b"><label for="m4b"><strong>Nick — before crew starts:</strong> pay <strong>$920 cash</strong> balance ($150 tip stays in same stack for after)</label></li>
+            <li><input type="checkbox" id="m5"><label for="m5"><strong>12:00–3:00 PM</strong> — Perfect Moving arrives; Nick on site at Riverside</label></li>
+            <li><input type="checkbox" id="m6"><label for="m6"><strong>12:00–5:00 PM</strong> — Service elevator load-out (super confirmed 12 PM start)</label></li>
+            <li><input type="checkbox" id="m-j1"><label for="m-j1"><strong>Jenna ~12:30</strong> — head to 33N (in time for 1:00–2:00 PM elevator)</label></li>
+          </ul>
+
+          <h3><span class="tag">1:00–2:00 PM</span> — Jackson Park unload (Jenna)</h3>
+          <ul class="tasks" data-group="mon-1-2">
+            <li><input type="checkbox" id="m8"><label for="m8">Service elevator reserved — coordinate unload with movers (can extend past 2 PM if elevator stays free)</label></li>
+            <li><input type="checkbox" id="m9"><label for="m9">Essentials + bed setup as movers unload</label></li>
+          </ul>
+
+          <h3><span class="tag">After load-out</span> — Nick wraps Riverside</h3>
+          <ul class="tasks" data-group="mon-after">
+            <li><input type="checkbox" id="u12"><label for="u12">Photograph every room for security deposit</label></li>
+            <li><input type="checkbox" id="m7"><label for="m7">Return keys to super/A&amp;E staff</label></li>
+            <li><input type="checkbox" id="mv4"><label for="mv4">Tip movers <strong>$150 cash</strong> (from same $1,070 withdrawal)</label></li>
+            <li><input type="checkbox" id="m-cats2"><label for="m-cats2"><strong>Uber to Jackson Park with the cats</strong> (unlock bathroom when settled)</label></li>
+          </ul>
+
+          <h3><span class="tag">Evening</span> — at LIC together</h3>
+          <ul class="tasks" data-group="mon-pm">
+            <li><input type="checkbox" id="m10"><label for="m10">Unsold marketplace items — donate or trash at Riverside; coordinate any sold pickups here (nothing goes to LIC)</label></li>
+          </ul>
+
+          <div class="food-box">
+            <strong>Food Monday:</strong> Breakfast — granola bars, yogurt, or bagels (no cooking). Lunch — order delivery to Jackson Park or grab sandwiches during the move. Dinner — celebrate! Pizza delivery to the new place once the bed is set up.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Key Dates &amp; Logistics</h2>
+      <table>
+        <thead>
+          <tr><th>Date</th><th>What</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sat Jun 27</td>
+            <td><span class="badge badge-today">Today</span> Pack sprint — out by 6:00 PM</td>
+          </tr>
+          <tr>
+            <td>Sun Jun 28</td>
+            <td><span class="badge badge-help">Help</span> Parents visit — pack Riverside; one LIC trip for fragile items (guitar, etc.)</td>
+          </tr>
+          <tr>
+            <td>Mon Jun 29</td>
+            <td><span class="badge badge-move">Move</span> Perfect Moving 12–3 PM · Riverside elevator 12 PM · JP elevator 1–2 PM · #727 → #33N</td>
+          </tr>
+          <tr>
+            <td>Tue Jun 30</td>
+            <td>Official Riverside lease end date (on record)</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Movers — Perfect Moving &amp; Storage</h2>
+      <table>
+        <thead>
+          <tr><th>Detail</th><th>Info</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Reference</td><td>#7549677 · Rep: Adin</td></tr>
+          <tr><td>Date</td><td>Mon Jun 29, 2026</td></tr>
+          <tr><td>Arrival window</td><td><strong>12:00–3:00 PM</strong> (start time, not duration)</td></tr>
+          <tr><td>Pick-up</td><td>140 Riverside Blvd #727 (doorman, elevator)</td></tr>
+          <tr><td>Delivery</td><td>28–10 Jackson Ave #33N (doorman, service elevator 1–2 PM Mon)</td></tr>
+          <tr><td>Guaranteed price</td><td>$970.00 flat rate ($1,000 − $30 cash discount, already applied)</td></tr>
+          <tr><td>Paid</td><td>$50 deposit</td></tr>
+          <tr><td>Balance due</td><td><strong>$920 cash</strong> — before the job starts Monday (locks in $970 total)</td></tr>
+          <tr><td>Cash to withdraw</td><td><strong>$1,070</strong> — tonight ~6:30 PM ($920 balance + $150 tip)</td></tr>
+          <tr><td>Tip (move day)</td><td><strong>$150 cash</strong> — after the job, from same withdrawal</td></tr>
+          <tr><td>Contact</td><td><a href="mailto:info@perfectmoving.com">info@perfectmoving.com</a> · <a href="tel:+12126012721">212-601-2721</a></td></tr>
+          <tr><td>Payment</td><td><a href="https://secure.cardknox.com/perfectmovingandstorage">secure.cardknox.com/perfectmovingandstorage</a></td></tr>
+        </tbody>
+      </table>
+      <div class="week-block">
+        <div class="phase">
+          <h3>On the quote inventory</h3>
+          <p style="font-size:0.88rem;color:var(--muted);margin-bottom:0.6rem;">
+            30 assorted boxes, queen bed, L-shape couch, 2 dressers, dining table + 2 chairs, TV + stand, 2 wardrobe boxes (rental), floor lamps, etc. — ~499 CF. <strong>Marketplace furniture is not going to LIC</strong> — tell movers to exclude unsold listed items from the load.
+          </p>
+          <ul class="tasks" data-group="mover-tasks">
+            <li><input type="checkbox" id="mv1"><label for="mv1">Reply to confirm quote + <strong>$920 cash Monday</strong> payment locks in $970 rate</label></li>
+            <li><input type="checkbox" id="mv2"><label for="mv2">Tonight ~6:30 PM: withdraw <strong>$1,070</strong> cash at bank ($920 + $150 tip)</label></li>
+            <li><input type="checkbox" id="mv2b"><label for="mv2b">Monday before job: pay <strong>$920 cash</strong> to movers</label></li>
+            <li><input type="checkbox" id="mv3"><label for="mv3">Optional: upgrade from basic coverage ($0.60/lb) — must decide 24+ hrs before move</label></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Building Details</h2>
+      <div class="week-block">
+        <div class="phase">
+          <h3>140 Riverside Blvd — Move-out (#727)</h3>
+          <ul class="tasks" data-group="bldg-out">
+            <li><input type="checkbox" id="b5"><label for="b5">Pre-move-out inspection (schedule with Jose Hanish if not done)</label></li>
+            <li><input type="checkbox" id="b4"><label for="b4">Send forwarding address to moveouts@ae-re.com</label></li>
+            <li><input type="checkbox" id="b3"><label for="b3">Return keys to super or A&amp;E staff on move day (don't leave in unit)</label></li>
+            <li><input type="checkbox" id="b1" checked disabled><label for="b1">COI submitted from Perfect Moving &amp; Storage</label></li>
+            <li><input type="checkbox" id="b2" checked disabled><label for="b2">Service elevator: Mon Jun 29, 12:00–5:00 PM — super confirmed 12 PM start (BuildingLink reservation shows 1–5 PM)</label></li>
+          </ul>
+          <p style="font-size:0.85rem;color:var(--muted);margin-top:0.5rem;">
+            Elevator use for moving: weekdays 9 AM–5 PM only. Contact: Jose Hanish (<a href="mailto:Jose.Hanish@ae-re.com">Jose.Hanish@ae-re.com</a>), Allison Paskowitz, <a href="mailto:moveouts@ae-re.com">moveouts@ae-re.com</a>
+          </p>
+        </div>
+        <div class="phase">
+          <h3>3 Jackson Park — Move-in (#33N)</h3>
+          <ul class="tasks" data-group="bldg-in">
+            <li><input type="checkbox" id="b8"><label for="b8">Confirm key/fob pickup — needed for Sunday LIC trip + Monday move-in</label></li>
+            <li><input type="checkbox" id="b9" checked disabled><label for="b9">Service elevator: Mon Jun 29, <strong>1:00–2:00 PM confirmed</strong> — 1-hour formal reservation; may continue after if no one is booked</label></li>
+            <li><input type="checkbox" id="b7" checked disabled><label for="b7">COI from Perfect Moving approved — vendor move; no self-move waiver needed</label></li>
+            <li><input type="checkbox" id="b6"><label for="b6">Complete move-in tasks on <a href="https://my.moved.com">my.moved.com</a> (orientation, moving plan, COI, pets)</label></li>
+          </ul>
+          <p style="font-size:0.85rem;color:var(--muted);margin-top:0.5rem;">
+            28–10 Jackson Avenue, LIC · Unit 3-33N · Move coordination: <a href="mailto:Management@JacksonParkLIC.com">Management@JacksonParkLIC.com</a> · 718-522-5766 · Leasing: <a href="mailto:leasing@jacksonparklic.com">leasing@jacksonparklic.com</a> (Carolyne Gallo)
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Marketplace Listings</h2>
+      <p style="font-size:0.88rem;color:var(--muted);margin-bottom:0.75rem;">
+        <span class="badge badge-today">Priority</span> Sell before Monday — cash beats tossing. <strong>Nothing listed goes to Jackson Park.</strong> Slash prices today; list the second monitor.
+      </p>
+      <table>
+        <thead>
+          <tr><th>Item</th><th>Price</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Flexispot standing desk 48×24</td><td>$50 → drop</td><td>Sell at Riverside — not going to LIC</td></tr>
+          <tr><td>Automatic adjustable standing desk</td><td>$50 → drop</td><td>Sell at Riverside — not going to LIC</td></tr>
+          <tr><td>IKEA Kallax 2×4</td><td>$35 → drop</td><td>Sell at Riverside — not going to LIC</td></tr>
+          <tr><td>Acer Nitro 27" monitor</td><td>$95 → drop</td><td>Sell at Riverside — not going to LIC</td></tr>
+          <tr><td>Second monitor</td><td>—</td><td><strong>List today</strong> — not going to LIC</td></tr>
+          <tr><td>White monitor arms</td><td>$20 → drop</td><td>Sell at Riverside — not going to LIC</td></tr>
+          <tr><td>Short desk drawer</td><td>$30 → drop</td><td>Sell at Riverside — not going to LIC</td></tr>
+          <tr><td>Card accessories</td><td>$20 → drop</td><td>Sell at Riverside — not going to LIC</td></tr>
+        </tbody>
+      </table>
+    </section>
 
     <section>
       <h2>Terms Explained</h2>
@@ -412,277 +740,26 @@
         <div class="glossary-item">
           <dt>COI (Certificate of Insurance)</dt>
           <dd>
-            A document from your <strong>moving company's insurance</strong> that proves they carry liability coverage.
-            Both buildings require it before movers can use the elevator or loading areas.
-            Your mover sends it to building management; the building must <strong>approve it</strong> (often takes 1–2 weeks).
-            It usually must list the building as "additional insured." Ask each building for their COI template and send it to your mover early.
-          </dd>
-        </div>
-        <div class="glossary-item">
-          <dt>Furniture pickups</dt>
-          <dd>
-            When someone <strong>buys your furniture</strong> (Facebook Marketplace, AptDeco, etc.) and comes to your apartment to take it.
-            You stay home for the agreed window, let them in, and they carry the item out — you don't deliver.
-            Schedule these for weekdays when you're free; buyers often want evenings or weekends, so be clear about your availability.
-            Do pickups at <strong>Riverside</strong> (where the furniture is now), ideally before Jun 20 so you're not cramming them in after your trip.
+            Proof of liability coverage from your moving company. Both buildings require it.
+            Riverside COI must list A&amp;E Real Estate Management LLC as certificate holder and
+            A&amp;E Real Estate Holdings LLC, A&amp;E Real Estate Management LLC, and 140 Riverside Boulevard LLC as additionally insured.
+            Already submitted via Jenna's email (Perfect Moving &amp; Storage template).
           </dd>
         </div>
       </dl>
     </section>
 
-    <section>
-      <h2>Key Dates</h2>
-      <table>
-        <thead>
-          <tr><th>Date</th><th>What</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Sun Jun 7</td>
-            <td><span class="badge badge-start">Start</span> Planning &amp; list furniture</td>
-          </tr>
-          <tr>
-            <td>Wed Jun 11</td>
-            <td><span class="badge badge-boxes">Boxes</span> 12 small boxes arrive — start packing non-essentials</td>
-          </tr>
-          <tr>
-            <td>Jun 14–15</td>
-            <td><span class="badge badge-party">Party</span> Birthday + party — light tasks only</td>
-          </tr>
-          <tr>
-            <td>Jun 16–20</td>
-            <td><strong>Main packing week</strong> — your critical window</td>
-          </tr>
-          <tr>
-            <td>Jun 21–22</td>
-            <td><span class="badge badge-trip">Trip</span> Blocked — week before move</td>
-          </tr>
-          <tr>
-            <td>Jun 23–26</td>
-            <td>Final sprint after trip</td>
-          </tr>
-          <tr>
-            <td>Sat Jun 27</td>
-            <td><span class="badge badge-move">Move Day</span> Riverside move-out → Jackson Park move-in (lease starts today)</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section>
-      <h2>Week-by-Week Plan</h2>
-
-      <div class="week-block">
-        <div class="week-header">Week 1 · Jun 7–13 — Setup, sell &amp; start packing</div>
-
-        <div class="phase">
-          <h3><span class="tag">Mon–Tue Jun 9–10</span> — do this first</h3>
-          <ul class="tasks" data-group="w1-mon">
-            <li><input type="checkbox" id="t1"><label for="t1">Book movers or truck for Sat Jun 27</label></li>
-            <li><input type="checkbox" id="t2"><label for="t2">Call 140 Riverside Blvd — move-out rules, elevator reservation for Jun 27, COI template for mover, loading dock</label></li>
-            <li><input type="checkbox" id="t3"><label for="t3">Call Jackson Park — lease starts Jun 27; confirm move-in time, elevator booking for the 27th, COI template, and when/where you get keys</label></li>
-            <li><input type="checkbox" id="t4"><label for="t4">Inventory everything — keep / sell / donate / trash</label></li>
-            <li><input type="checkbox" id="t5"><label for="t5">List all furniture for sale — photos up by Tue at latest</label></li>
-          </ul>
-        </div>
-
-        <div class="phase">
-          <h3><span class="tag">Wed Jun 11</span> — boxes arrive</h3>
-          <ul class="tasks" data-group="w1-wed">
-            <li><input type="checkbox" id="t6"><label for="t6">Pack non-essentials: books, decor, off-season clothes, extra linens, rarely used kitchen items</label></li>
-            <li><input type="checkbox" id="t7"><label for="t7">Label boxes by room (Bedroom / Kitchen / Living / Misc)</label></li>
-            <li><input type="checkbox" id="t8"><label for="t8">Start "open first at LIC" list: toiletries, 2 days clothes, chargers, basic kitchen, TP, sheets</label></li>
-          </ul>
-        </div>
-
-        <div class="phase">
-          <h3><span class="tag">Thu–Fri Jun 12–13</span></h3>
-          <ul class="tasks" data-group="w1-fri">
-            <li><input type="checkbox" id="t9"><label for="t9">Schedule buyer furniture pickups at Riverside — aim for Jun 16–20 weekdays (see Terms Explained)</label></li>
-            <li><input type="checkbox" id="t10"><label for="t10">Start address changes: USPS forward, bank, credit cards, subscriptions, employer</label></li>
-            <li><input type="checkbox" id="t11"><label for="t11">Utilities: schedule disconnect at Riverside, connect at Jackson Park for Jun 27</label></li>
-            <li><input type="checkbox" id="t12"><label for="t12">Have mover submit COI (Certificate of Insurance) to both buildings — see Terms Explained</label></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="week-block">
-        <div class="week-header party">
-          Week 2 · Jun 14–20 — Party weekend + main packing week
-          <div class="sub">Jun 16–20 is your last full work block before the trip</div>
-        </div>
-
-        <div class="phase">
-          <h3><span class="tag">Party weekend Jun 14–15</span> — light tasks only</h3>
-          <ul class="tasks" data-group="w2-party">
-            <li><input type="checkbox" id="t13"><label for="t13">Respond to buyer messages; confirm pickup times</label></li>
-            <li><input type="checkbox" id="t14"><label for="t14">Pack 2–3 boxes if you have a spare hour</label></li>
-          </ul>
-        </div>
-
-        <div class="phase">
-          <h3><span class="tag">Mon–Fri Jun 16–20</span> — main packing week (critical)</h3>
-          <ul class="tasks" data-group="w2-main">
-            <li><input type="checkbox" id="t15"><label for="t15">Living room — pack decor, media, extras; leave sofa/TV until last unless sold</label></li>
-            <li><input type="checkbox" id="t16"><label for="t16">Bedroom — out-of-season clothes, shoes, decor</label></li>
-            <li><input type="checkbox" id="t17"><label for="t17">Kitchen — duplicates, small appliances, pantry extras</label></li>
-            <li><input type="checkbox" id="t18"><label for="t18">Buyer furniture pickups at Riverside — Jun 16–20 weekdays</label></li>
-            <li><input type="checkbox" id="t19"><label for="t19">Donation run for unsold items</label></li>
-            <li><input type="checkbox" id="t20"><label for="t20">Confirm mover booking + both building reservations for Jun 27</label></li>
-            <li><input type="checkbox" id="t21"><label for="t21">Drop prices on anything not sold by Jun 20</label></li>
-          </ul>
-          <p style="font-size:0.85rem;color:var(--muted);margin-top:0.5rem;"><strong>Goal by Fri Jun 20:</strong> ~70–80% packed, most furniture sold or buyer pickups scheduled, COI approved by both buildings, Jun 27 move logistics locked.</p>
-        </div>
-      </div>
-
-      <div class="week-block">
-        <div class="week-header trip">
-          Week 3 · Jun 21–27 — Trip, then sprint to move
-          <div class="sub">Only Jun 23–26 left after you return</div>
-        </div>
-
-        <div class="phase">
-          <h3><span class="tag">Trip weekend Jun 21–22</span> — blocked</h3>
-          <ul class="tasks" data-group="w3-trip">
-            <li><input type="checkbox" id="t22"><label for="t22">Optional: reply to urgent buyer messages only</label></li>
-          </ul>
-        </div>
-
-        <div class="phase">
-          <h3><span class="tag">Mon–Wed Jun 23–25</span> — final sprint</h3>
-          <ul class="tasks" data-group="w3-sprint">
-            <li><input type="checkbox" id="t23"><label for="t23">Pack kitchen for real — one pot, one pan, minimal dishes until move day</label></li>
-            <li><input type="checkbox" id="t24"><label for="t24">Pack bedroom — one outfit per day + move-day clothes</label></li>
-            <li><input type="checkbox" id="t25"><label for="t25">Disassemble furniture coming with you</label></li>
-            <li><input type="checkbox" id="t26"><label for="t26">Last buyer furniture pickups at Riverside, or donate/curb</label></li>
-            <li><input type="checkbox" id="t27"><label for="t27">Deep clean as rooms empty</label></li>
-            <li><input type="checkbox" id="t28"><label for="t28">Eat down fridge/freezer</label></li>
-            <li><input type="checkbox" id="t29"><label for="t29">Photograph Riverside for security deposit</label></li>
-          </ul>
-        </div>
-
-        <div class="phase">
-          <h3><span class="tag">Thu Jun 26</span> — eve of move</h3>
-          <ul class="tasks" data-group="w3-eve">
-            <li><input type="checkbox" id="t30"><label for="t30">Essentials box ready (don't put on truck)</label></li>
-            <li><input type="checkbox" id="t31"><label for="t31">Confirm elevator times with both buildings + movers</label></li>
-            <li><input type="checkbox" id="t32"><label for="t32">Final sweep prep — trash, mail, keys checklist</label></li>
-            <li><input type="checkbox" id="t33"><label for="t33">Bedding: pack last or air mattress for one night</label></li>
-          </ul>
-        </div>
-
-        <div class="phase">
-          <h3><span class="tag">Sat Jun 27</span> — move day</h3>
-          <ul class="tasks" data-group="w3-move">
-            <li><input type="checkbox" id="t34"><label for="t34">Movers / truck at Riverside per elevator reservation</label></li>
-            <li><input type="checkbox" id="t35"><label for="t35">Final walkthrough, keys, thermostat, photos</label></li>
-            <li><input type="checkbox" id="t36"><label for="t36">Pick up Jackson Park keys (lease starts today) → unload at 28–30 Jackson Ave; elevator per reservation</label></li>
-            <li><input type="checkbox" id="t37"><label for="t37">Set up essentials box + bed first at LIC</label></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2>Priorities</h2>
-      <table class="priority-table">
-        <thead>
-          <tr><th>Priority</th><th>When</th><th>Why</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>List furniture</td>
-            <td>This week (by Jun 11)</td>
-            <td>Need 2+ weeks to sell; pickups before trip</td>
-          </tr>
-          <tr>
-            <td>COI + elevator bookings</td>
-            <td>Mon–Tue Jun 9–10</td>
-            <td>Insurance cert must be approved before movers can enter either building</td>
-          </tr>
-          <tr>
-            <td>Main packing</td>
-            <td>Jun 16–20 weekdays</td>
-            <td>Last uninterrupted block</td>
-          </tr>
-          <tr>
-            <td>70–80% packed</td>
-            <td>By Fri Jun 20</td>
-            <td>Trip eats Jun 21–22</td>
-          </tr>
-          <tr>
-            <td>Final 20% + clean</td>
-            <td>Jun 23–26</td>
-            <td>Only window left</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section>
-      <h2>Furniture Selling Timeline</h2>
-      <p style="font-size:0.88rem;color:var(--muted);margin-bottom:0.75rem;">
-        Pickups = buyers coming to <strong>Riverside</strong> to take items they bought. All pickups must happen before you vacate Riverside.
-      </p>
-      <div class="furniture-grid">
-        <div class="furniture-row">
-          <div class="when">Jun 7–11</div>
-          <div>List everything on Facebook Marketplace, AptDeco, OfferUp. Good photos + dimensions. "Pick up at Riverside — must take by Jun 20."</div>
-        </div>
-        <div class="furniture-row">
-          <div class="when">Jun 14–15</div>
-          <div>Party weekend — reply to buyers only; avoid scheduling pickups if possible</div>
-        </div>
-        <div class="furniture-row">
-          <div class="when">Jun 16–20</div>
-          <div><strong>Primary pickup window</strong> — buyers come to your apartment on weekdays</div>
-        </div>
-        <div class="furniture-row">
-          <div class="when">Jun 23–25</div>
-          <div>Last-chance buyer pickups, price drops, or donate</div>
-        </div>
-        <div class="furniture-row">
-          <div class="when">Jun 26</div>
-          <div>Donate or curb anything left — nothing should remain to move unless you're keeping it</div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2>Building Reminders</h2>
-      <div class="week-block">
-        <div class="phase">
-          <h3>140 Riverside Blvd (move-out)</h3>
-          <ul class="tasks" data-group="bldg-out">
-            <li><input type="checkbox" id="t38"><label for="t38">COI (Certificate of Insurance) from mover submitted &amp; approved — allow 1–2 weeks</label></li>
-            <li><input type="checkbox" id="t39"><label for="t39">Elevator padding / reservation for Jun 27</label></li>
-            <li><input type="checkbox" id="t40"><label for="t40">Loading dock or street loading rules confirmed</label></li>
-          </ul>
-        </div>
-        <div class="phase">
-          <h3>Jackson Park LIC (move-in — lease starts Sat Jun 27)</h3>
-          <ul class="tasks" data-group="bldg-in">
-            <li><input type="checkbox" id="t41"><label for="t41">Move-in appointment booked for Jun 27 (cannot move in earlier)</label></li>
-            <li><input type="checkbox" id="t42"><label for="t42">COI (Certificate of Insurance) from mover submitted &amp; approved before move day</label></li>
-            <li><input type="checkbox" id="t43"><label for="t43">Confirm key/fob pickup process for Jun 27 — lease commencement day</label></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
     <div class="bottom-line">
-      <strong>Bottom line:</strong> Treat <strong>Jun 16–20</strong> as your crunch week, not the party or trip weekends.
-      Call both buildings Mon–Tue this week for move packets and COI templates — that's the most common thing that derails NYC moves.
-      Jackson Park is move-in on the 27th only; line up Riverside move-out the same day so you're not between apartments overnight.
+      <strong>Bottom line:</strong> Saturday = finish kitchen + <strong>slash marketplace prices</strong>. Sunday = Nick packs; Jenna LIC trip for fragile only; keep pushing sales. Monday = marketplace items stay at Riverside; Jenna to LIC ~12:30; Nick handles movers and Ubers with cats.
     </div>
 
     <footer>
-      Generated Jun 7, 2026 · Checkboxes save automatically in this browser
+      Updated Sat Jun 27, 2026 · Documents in <code>riverside-move-out/</code>, <code>jackson-park-move-in/</code>, <code>movers/</code> · Checkboxes save in this browser
     </footer>
   </div>
 
   <script>
-    const STORAGE_KEY = 'move-timeline-jun2026';
+    const STORAGE_KEY = 'move-timeline-jun2026-v2';
 
     function loadState() {
       try {
@@ -697,8 +774,8 @@
     }
 
     function updateProgress() {
-      const boxes = document.querySelectorAll('input[type="checkbox"]');
-      const checked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+      const boxes = document.querySelectorAll('input[type="checkbox"]:not([disabled])');
+      const checked = document.querySelectorAll('input[type="checkbox"]:not([disabled]):checked').length;
       const total = boxes.length;
       const pct = total ? Math.round((checked / total) * 100) : 0;
       document.getElementById('progress-fill').style.width = pct + '%';
@@ -706,7 +783,7 @@
     }
 
     const state = loadState();
-    document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    document.querySelectorAll('input[type="checkbox"]:not([disabled])').forEach(cb => {
       if (state[cb.id]) {
         cb.checked = true;
         cb.closest('li').classList.add('done');
